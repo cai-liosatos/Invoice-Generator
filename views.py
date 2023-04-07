@@ -195,8 +195,8 @@ if __name__ == "views":
 
     # Loading windows into memory from main_view.ui and confirmation_popup.ui
     app=QtWidgets.QApplication([])
-    c_dlg=pq.uic.loadUi(resource_path("confirmation_popup.ui"))
-    call=pq.uic.loadUi(resource_path("main_view.ui"))
+    c_dlg=pq.uic.loadUi(resource_path("Views/confirmation_popup.ui"))
+    call=pq.uic.loadUi(resource_path("Views/main_view.ui"))
 
     setting_view()
     call.submitButton.clicked.connect(Submit)
