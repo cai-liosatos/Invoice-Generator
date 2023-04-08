@@ -35,19 +35,15 @@ def Pdf_check(dirlist):
     return file
 
 # function to edit excel file
-def Excel_edit(client, client_dict):
-    # checking if folder exists, if not then creats it
-    if not os.path.exists(f'{fileDir}\Invoices\{client}'):
-        os.makedirs(f'{fileDir}\Invoices\{client}')
-    
+def Excel_edit(client, client_dict):    
     #  makes invoice_number either 1 greater than the last invoice, or 1 if none exist
 
     # Get list of all files only in the given directory
-    dirlist = filter( lambda x: os.path.isfile(os.path.join(f'{fileDir}\Invoices\{client}', x)),
-                            os.listdir(f'{fileDir}\Invoices\{client}') )
+    dirlist = filter( lambda x: os.path.isfile(os.path.join(f'{fileDir}\Invoices', x)),
+                            os.listdir(f'{fileDir}\Invoices') )
     # Sort list of files based on last modification time in ascending order
     dirlist = sorted( dirlist,
-                            key = lambda x: os.path.getmtime(os.path.join(f'{fileDir}\Invoices\{client}', x))
+                            key = lambda x: os.path.getmtime(os.path.join(f'{fileDir}\Invoices', x))
                             )
 
     if len(dirlist) > 0:
@@ -111,7 +107,7 @@ def pdf_conversion(client, invoice_number, client_dict):
     WB_PATH = f'{fileDir}\{xcl_file}'
         
     # PDF path when saving
-    PATH_TO_PDF = f'{fileDir}\Invoices\{client}\Invoice_{str(invoice_number)}{client_dict["Name"][client_dict["person"]].split(" ")[0][0]}{client_dict["Name"][client_dict["person"]].split(" ")[1][0]}_{dates_list[-1].replace("/","")}.pdf'
+    PATH_TO_PDF = f'{fileDir}\Invoices\Invoice_{str(invoice_number)}{client_dict["Name"][client_dict["person"]].split(" ")[0][0]}{client_dict["Name"][client_dict["person"]].split(" ")[1][0]}_{dates_list[-1].replace("/","")}.pdf'
     excel = win32com.client.Dispatch("Excel.Application")
     excel.Visible = False
 
@@ -124,7 +120,7 @@ def pdf_conversion(client, invoice_number, client_dict):
         # Save
         wb.ActiveSheet.ExportAsFixedFormat(0, PATH_TO_PDF)
     except com_error:
-        return f"Sorry, we couldn't find the output file ({fileDir}\Invoices\{client}\). Is it possible this folder was moved, renamed or deleted?"
+        return f"Sorry, we couldn't find the output file ({fileDir}\Invoices\). Is it possible this folder was moved, renamed or deleted?"
     else:
         wb.Close(True)
         excel.Quit()
