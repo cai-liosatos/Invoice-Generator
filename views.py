@@ -97,9 +97,9 @@ def setting_view():
 
 # function for updating map
 def update_map(day, variables):
+    map[day]["PH"][map["person"]] = variables[0].isChecked()
+    map[day]["Hours"][map["person"]] = variables[1].text()
     if float(variables[1].text()) > 0:
-        map[day]["PH"][map["person"]] = variables[0].isChecked()
-        map[day]["Hours"][map["person"]] = variables[1].text()
         map["Worked with"][map["Name"][map["person"]]][0] += float(variables[1].text())
         map["Worked with"][map["Name"][map["person"]]][1].append(day[:2])
 
