@@ -4,34 +4,8 @@ from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import datetime
 import os.path
 import ctypes
+import json
 
-map = {
-    "Worked with": {},
-    "person": 0,
-    "Name": ["Elwyn Bourke", "Jonathan McNeill", "Zenith Burke"],
-    "KMs": ["0", "0", "0"],
-    "Monday": {
-        "PH": [False, False, False],
-        "Hours": ["1", "1", "0"]},
-    "Tuesday": {
-        "PH": [False, False, False],
-        "Hours": ["0", "1", "0"]},
-    "Wednesday": {
-        "PH": [False, False, False],
-        "Hours": ["1", "1", "0"]},
-    "Thursday": {
-        "PH": [False, False, False],
-        "Hours": ["1", "1", "0"]},
-    "Friday": {
-        "PH": [False, False, False],
-        "Hours": ["0", "1", "0"]},
-    "Saturday": {
-        "PH": [False, False, False],
-        "Hours": ["0", "0", "0"]},
-    "Sunday": {
-        "PH": [False, False, False],
-        "Hours": ["0", "0", "0"]}
-}
 
 # GUI functionality
 def resource_path(relative_path):
@@ -42,6 +16,9 @@ def resource_path(relative_path):
     except Exception:
         base_path = os.path.abspath(".")
     return os.path.join(base_path, relative_path)
+
+with open(resource_path('map.json'), 'r') as f:
+    map = json.load(f)
 
 # dynamically grabbing date of x days ago
 def new_date(today, number):
