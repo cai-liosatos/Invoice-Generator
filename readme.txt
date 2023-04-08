@@ -1,13 +1,22 @@
-If working standard work week (Monday/Wed/Thurs, 2-4 every day):
-	-> make sure excel is closed
-	-> double click "Excel2PDF.exe"
-	-> do nothing else. It will auto-generate everything for you
+To use:
+Make sure "Invoice-Template.xlsx" is in root folder with "Invoice-Generator.exe" file, otherwise it will not generate invoices.
 
-If not (e.g. extra day or different hours such as 3 hours on thursday):
-	-> make sure excel is closed
-	-> open "invoice-tempate_Example.xlsx"
-	-> make the necessary modifications (only to the shift information in the table, do not change anything else)
-	-> close "invoice-tempate_Example.xlsx"
-	-> double click "Excel2PDF.exe" (this will generate the PDF without changing your modifications)
-	-> open "invoice-tempate_Example.xlsx" again
-	-> revert previously made shift modifications so that it displays a standard work week
+Load up "Invoice-Generator.exe"
+If you worked with the client in the time period as displayed at the top of user interface:
+	-> select "PH" checkbox next to days worked if applicable
+	-> input hours that you worked with the client (Integer [e.g. 1] or Float [e.g. 1.5] values only)
+ 	-> select "next >" or "submit" button (bottom right) to advance to next client
+
+If you did not work with the client in the time period as displayed at the top of user interface:
+	-> either input 0 in all the "Hours" textfields; or
+	-> select "skip >" button (bottom right) to advance to next client
+
+If inputted for every client:
+	-> read displayed information in the popup screen 
+	-> if information is correct:
+		-> select "Yes" to generate invoices
+	-> if information is not correct:
+		-> select "No" to edit information
+
+If you mistakingly inputted incorrect information, and wish to edit:
+	-> click "< Prev" button (bottom right) to navigate to previous client
