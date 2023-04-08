@@ -9,33 +9,26 @@ map = {
     "Worked with": {},
     "person": 0,
     "Name": ["Elwyn Bourke", "Jonathan McNeill", "Zenith Burke"],
-    "KMs": ["0", "0", 0],
+    "KMs": ["0", "0", "0"],
     "Monday": {
-        "worked": [True, True, False],
         "PH": [False, False, False],
         "Hours": ["1", "1", "0"]},
     "Tuesday": {
-        "worked": [False, True, False],
         "PH": [False, False, False],
         "Hours": ["0", "1", "0"]},
     "Wednesday": {
-        "worked": [True, True, False],
         "PH": [False, False, False],
         "Hours": ["1", "1", "0"]},
     "Thursday": {
-        "worked": [True, True, False],
         "PH": [False, False, False],
         "Hours": ["1", "1", "0"]},
     "Friday": {
-        "worked": [False, True, False],
         "PH": [False, False, False],
         "Hours": ["0", "1", "0"]},
     "Saturday": {
-        "worked": [False, False, False],
         "PH": [False, False, False],
         "Hours": ["0", "0", "0"]},
     "Sunday": {
-        "worked": [False, False, False],
         "PH": [False, False, False],
         "Hours": ["0", "0", "0"]}
 }
@@ -95,9 +88,6 @@ def setting_view():
     # Hours input
     text_updating(labels=[call.input_w_su, call.input_w_m, call.input_w_tu, call.input_w_w, call.input_w_th, call.input_w_f, call.input_w_sa], col="Hours")
     
-    # Worked checkboxes
-    checkbox_values([call.cb_w_su, call.cb_w_m, call.cb_w_tu, call.cb_w_w, call.cb_w_th, call.cb_w_f, call.cb_w_sa], "worked")
-    
     # PH checkboxes
     checkbox_values([call.cb_ph_su, call.cb_ph_m, call.cb_ph_tu, call.cb_ph_w, call.cb_ph_th, call.cb_ph_f, call.cb_ph_sa], "PH")
     
@@ -107,11 +97,10 @@ def setting_view():
 
 # function for updating map
 def update_map(day, variables):
-    if variables[0].isChecked():
-        map[day]["worked"][map["person"]] = variables[0].isChecked()
-        map[day]["PH"][map["person"]] = variables[1].isChecked()
-        map[day]["Hours"][map["person"]] = variables[2].text()
-        map["Worked with"][map["Name"][map["person"]]][0] += float(variables[2].text())
+    if float(variables[1].text()) > 0:
+        map[day]["PH"][map["person"]] = variables[0].isChecked()
+        map[day]["Hours"][map["person"]] = variables[1].text()
+        map["Worked with"][map["Name"][map["person"]]][0] += float(variables[1].text())
         map["Worked with"][map["Name"][map["person"]]][1].append(day[:2])
 
 # function for checking validity of inputted values
@@ -156,13 +145,13 @@ def Submit(func=None):
     if map["person"] < len(map["Name"]):
     # update map with data, for each day 
         map["Worked with"][map["Name"][map["person"]]] = [0, []]
-        update_map(days_list[0], [call.cb_w_su, call.cb_ph_su, call.input_w_su])
-        update_map(days_list[1], [call.cb_w_m, call.cb_ph_m, call.input_w_m])
-        update_map(days_list[2], [call.cb_w_tu, call.cb_ph_tu, call.input_w_tu])
-        update_map(days_list[3], [call.cb_w_w, call.cb_ph_w, call.input_w_w])
-        update_map(days_list[4], [call.cb_w_th, call.cb_ph_th, call.input_w_th])
-        update_map(days_list[5], [call.cb_w_f, call.cb_ph_f, call.input_w_f])
-        update_map(days_list[6], [call.cb_w_sa, call.cb_ph_sa, call.input_w_sa])
+        update_map(days_list[0], [call.cb_ph_su, call.input_w_su])
+        update_map(days_list[1], [call.cb_ph_m, call.input_w_m])
+        update_map(days_list[2], [call.cb_ph_tu, call.input_w_tu])
+        update_map(days_list[3], [call.cb_ph_w, call.input_w_w])
+        update_map(days_list[4], [call.cb_ph_th, call.input_w_th])
+        update_map(days_list[5], [call.cb_ph_f, call.input_w_f])
+        update_map(days_list[6], [call.cb_ph_sa, call.input_w_sa])
 
         if map["Worked with"][map["Name"][map["person"]]][0] == 0:
             del map["Worked with"][map["Name"][map["person"]]]

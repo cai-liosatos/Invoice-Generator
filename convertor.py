@@ -67,7 +67,7 @@ def Excel_edit(client, client_dict):
     cell_number = 16
     for x in days_list:
         # identifying if worked with this client on a particular day
-        if client_dict[x]["worked"][client_dict["person"]]:
+        if float(client_dict[x]["Hours"][client_dict["person"]]) > 0:
 
             # identifying the type of shift (PH/weekend/weekday)
             if client_dict[x]["PH"][client_dict["person"]]:
