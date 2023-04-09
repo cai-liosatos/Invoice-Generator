@@ -59,6 +59,7 @@ def main():
     for file in dirlist_sorting(fileDir):
         filetime = dt.datetime.fromtimestamp(
                 os.path.getctime('Invoices/' + file))
+        # add this optimised checking into dirlist_sorting?
         if len(file_dupe_check) == len(map["Name"]):
             break
         if filetime.date() == today and file[-15:-13] not in file_dupe_check:
