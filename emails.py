@@ -3,7 +3,7 @@ import os
 # import sys
 import win32com.client as win32
 import datetime as dt
-from views import dates_list, resource_path, map
+from views import dates_list, map
 from convertor import dirlist_sorting
 
 def recipients_generator(client_emails):

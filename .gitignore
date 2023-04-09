@@ -1,4 +1,4 @@
 *.xlsx
 *.json
 Invoices/
-test.py
+tes*.py
