@@ -9,7 +9,7 @@ import convertor
 from convertor import *
 
 map = views.map
-
+print(views.dates_list)
 # quitting python file if main window is forced close
 if not map_update: sys.exit()
 
