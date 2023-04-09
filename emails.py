@@ -4,6 +4,7 @@ import os
 import win32com.client as win32
 import datetime as dt
 from views import dates_list, resource_path, map
+from convertor import dirlist_sorting
 
 def recipients_generator(client_emails):
     rec_set = set()
@@ -51,13 +52,18 @@ def attachments_generator(rec_list, rec_set, files):
     return attachments_list, clients
 
 def main():
-    files = set()
+    fileDir = os.path.dirname(os.path.realpath('__file__'))
+    files = []
+    file_dupe_check = set()
     today = dt.datetime.now().date()
-    for file in os.listdir('Invoices/'):
+    for file in dirlist_sorting(fileDir):
         filetime = dt.datetime.fromtimestamp(
                 os.path.getctime('Invoices/' + file))
-        if filetime.date() == today:
-            files.add(file)
+        if len(file_dupe_check) == len(map["Name"]):
+            break
+        if filetime.date() == today and file[-15:-13] not in file_dupe_check:
+            files.append(file)
+            file_dupe_check.add(file[-15:-13])
     
     client_names = [key for key in map["Worked with"].keys()]
     client_emails = [map["Emails"][x] for x in client_names]
