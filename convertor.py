@@ -95,7 +95,6 @@ def xc2pdf(clients, client_dict):
                 ws.ExportAsFixedFormat(0, PATH_TO_PDF)
             except:
                 return f"Sorry, we couldn't find the output file ({fileDir}\Invoices\). Is it possible this folder was moved, renamed or deleted?"
-            # message = pdf_conversion(client[0], invoice_number, client_dict)
     return "Successfully created invoices"
 
 def main(client_dict):
