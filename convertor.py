@@ -18,7 +18,7 @@ message = ''
 # recursion to find check files in output folder
 def Pdf_check(dirlist):
     try:
-        file = dirlist[-1].split('_')
+        file = dirlist[0].split('_')
     except:
         return False
     
@@ -29,23 +29,25 @@ def Pdf_check(dirlist):
         try:
             int(file[1][0:-2]) 
         except:
-            dirlist.pop(-1)
+            dirlist.pop(0)
             file = Pdf_check(dirlist)
 
     return file
 
-# function to edit excel file
-def Excel_edit(client, client_dict):    
-    #  makes invoice_number either 1 greater than the last invoice, or 1 if none exist
-
-    # Get list of all files only in the given directory
+def dirlist_sorting(fileDir):
     dirlist = filter( lambda x: os.path.isfile(os.path.join(f'{fileDir}\Invoices', x)),
-                            os.listdir(f'{fileDir}\Invoices') )
-    # Sort list of files based on last modification time in ascending order
+                                os.listdir(f'{fileDir}\Invoices') )
+        # Sort list of files based on last modification time in ascending order
     dirlist = sorted( dirlist,
                             key = lambda x: os.path.getmtime(os.path.join(f'{fileDir}\Invoices', x))
                             )
+    dirlist.reverse()
+    return dirlist
 
+# function to edit excel file
+def Excel_edit(client, client_dict):    
+    dirlist = dirlist_sorting(fileDir)
+    
     if len(dirlist) > 0:
         file = Pdf_check(dirlist)
         if file:

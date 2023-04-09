@@ -10,12 +10,13 @@ from convertor import *
 import emails
 from emails import *
 
+def text_box(message):
+    ctypes.windll.user32.MessageBoxW(0, message, 1)
+
 map = views.map
 # quitting python file if main window is forced close
 if not map_update: sys.exit()
 
-message = convertor.main(map)
-ctypes.windll.user32.MessageBoxW(0, message, 1)
-ctypes.windll.user32.MessageBoxW(0, "Now making email drafts", 1)
-message = emails.main()
-ctypes.windll.user32.MessageBoxW(0, message, 1)
+text_box(convertor.main(map))
+text_box("Now making email drafts")
+text_box(emails.main())

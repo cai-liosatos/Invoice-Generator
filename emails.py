@@ -1,6 +1,6 @@
 import os
-import json
-import sys
+# import json
+# import sys
 import win32com.client as win32
 import datetime as dt
 from views import dates_list, resource_path, map
@@ -17,7 +17,10 @@ def recipients_generator(client_emails):
 def create_mail(client_names, dates, recipient, attachments, send=True):
     for client, rec, file in zip(client_names, recipient, attachments):
         client_str = "/".join(client)
-        outlook = win32.Dispatch('outlook.application')
+        try:
+            outlook = win32.Dispatch('outlook.application')
+        except:
+            return "Outlook doesn't exist, make sure it is downloaded correctly"
         mail = outlook.CreateItem(0)
         mail.To = rec
         mail.Subject = f'Kita Liosatos Services Invoice {dates[-1]}'
@@ -28,6 +31,7 @@ def create_mail(client_names, dates, recipient, attachments, send=True):
             mail.send()
         else:
             mail.save()
+    return "Successfully created email drafts"
 
 def attachments_generator(rec_list, rec_set, files):
     clients = []
@@ -60,5 +64,5 @@ def main():
     dates = [dates_list[0], dates_list[-1]]
     recipients, rec_set = recipients_generator(client_emails)
     attachments, clients = attachments_generator(recipients, rec_set, files)
-    create_mail(clients, dates, recipients, attachments, send=False)
-    return "Successfully created email drafts"
+    message = create_mail(clients, dates, recipients, attachments, send=False)
+    return message
