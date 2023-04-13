@@ -1,5 +1,3 @@
-# close excel if error occurs between it opening and closing (cant find file error)
-# mail setup?
 map_update = False
 import sys
 import ctypes
@@ -18,5 +16,4 @@ map = views.map
 if not map_update: sys.exit()
 
 text_box(convertor.main(map))
-text_box("Now making email drafts")
 text_box(emails.main())

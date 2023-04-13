@@ -1,6 +1,4 @@
 import os
-# import json
-# import sys
 import win32com.client as win32
 import datetime as dt
 from views import dates_list, map
