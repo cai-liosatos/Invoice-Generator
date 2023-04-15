@@ -32,8 +32,9 @@ def create_mail(client_names, dates, recipient, attachments, carer, send=True):
             mail.save()
     return "Successfully created email drafts"
 
-def attachments_generator(rec_list, rec_set, files):
-    clients = []
+def attachments_generator(rec_list, rec_set, files, client_emails):
+    clients, attachments_list = []
+    attachment_set = set()
     attachments_list = []
     for k, v in zip(map["Emails"].keys(), map["Emails"].values()):
         if v in rec_set and k in map["Worked with"].keys():
@@ -41,10 +42,12 @@ def attachments_generator(rec_list, rec_set, files):
             for file in files:
                 if file[-15] == k[0] and file[-14] == k.split(' ')[-1][0]:
                     invoice = file
-            if len(attachments_list) > idx + 1:
+            if v == client_emails[idx] and v in attachment_set:
+            # if len(attachments_list) > idx + 1:
                 attachments_list[idx].append(invoice)
                 clients[idx].append(k)
             else:
+                attachment_set.add(v)
                 attachments_list.append([invoice])
                 clients.append([k])
     return attachments_list, clients, map["Carer"]
@@ -68,6 +71,6 @@ def main():
     client_emails = [map["Emails"][x] for x in client_names]
     dates = [dates_list[0], dates_list[-1]]
     recipients, rec_set = recipients_generator(client_emails)
-    attachments, clients, carer = attachments_generator(recipients, rec_set, files)
+    attachments, clients, carer = attachments_generator(recipients, rec_set, files, client_emails)
     message = create_mail(clients, dates, recipients, attachments, carer, send=False)
     return message

@@ -103,10 +103,6 @@ def main(client_dict):
     fileDir = os.path.dirname(os.path.realpath('__file__'))
     xcl_file = 'Invoice-Template.xlsx'
     WB_PATH = f'{fileDir}\{xcl_file}'
-    if not os.path.exists(WB_PATH):
-        print('no')
-    else:
-        print('yes')
 
     # Make invoice folder
     if not os.path.exists(f'{fileDir}\Invoices'):
