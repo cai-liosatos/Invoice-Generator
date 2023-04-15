@@ -13,7 +13,7 @@ def recipients_generator(client_emails):
             rec_list.append(client)
     return rec_list, rec_set
 
-def create_mail(client_names, dates, recipient, attachments, send=True):
+def create_mail(client_names, dates, recipient, attachments, carer, send=True):
     for client, rec, file in zip(client_names, recipient, attachments):
         client_str = "/".join(client)
         try:
@@ -22,8 +22,8 @@ def create_mail(client_names, dates, recipient, attachments, send=True):
             return "Outlook doesn't exist, make sure it is downloaded correctly"
         mail = outlook.CreateItem(0)
         mail.To = rec
-        mail.Subject = f'Kita Liosatos Services Invoice {dates[-1]}'
-        mail.HtmlBody = f"Hello,<br><br>Here is the invoice for the week starting {dates[0]} for {client_str}<br><br>Kita Liosatos<br>0447 577 179"
+        mail.Subject = f'{carer} Services Invoice {dates[-1]}'
+        mail.HtmlBody = f"Hello,<br><br>Here is the invoice for the week starting {dates[0]} for {client_str}<br><br>{carer}<br>0447 577 179"
         for f in file:
             mail.Attachments.Add(os.path.join(os.getcwd(),f'Invoices/{f}'))
         if send:
@@ -47,7 +47,7 @@ def attachments_generator(rec_list, rec_set, files):
             else:
                 attachments_list.append([invoice])
                 clients.append([k])
-    return attachments_list, clients
+    return attachments_list, clients, map["Carer"]
 
 def main():
     fileDir = os.path.dirname(os.path.realpath('__file__'))
@@ -68,6 +68,6 @@ def main():
     client_emails = [map["Emails"][x] for x in client_names]
     dates = [dates_list[0], dates_list[-1]]
     recipients, rec_set = recipients_generator(client_emails)
-    attachments, clients = attachments_generator(recipients, rec_set, files)
-    message = create_mail(clients, dates, recipients, attachments, send=False)
+    attachments, clients, carer = attachments_generator(recipients, rec_set, files)
+    message = create_mail(clients, dates, recipients, attachments, carer, send=False)
     return message

@@ -75,7 +75,7 @@ def Excel_edit(client_dict):
             cell_number += 1
 
     # blanking out rest of price table
-    if ws.Cells(cell_number,1).Value is not None: 
+    if ws.Cells(cell_number,1).Value: 
         ws.Range(f'A{str(cell_number)}:E25').ClearContents()
 
     # populating KMs cell
@@ -95,13 +95,18 @@ def xc2pdf(clients, client_dict):
                 ws.ExportAsFixedFormat(0, PATH_TO_PDF)
             except:
                 return f"Sorry, we couldn't find the output file ({fileDir}\Invoices\). Is it possible this folder was moved, renamed or deleted?"
-    return "Successfully created invoices"
+    return ""
 
 def main(client_dict):
     global fileDir, xcl_file, ws, wb
     # Excel file path information
     fileDir = os.path.dirname(os.path.realpath('__file__'))
     xcl_file = 'Invoice-Template.xlsx'
+    WB_PATH = f'{fileDir}\{xcl_file}'
+    if not os.path.exists(WB_PATH):
+        print('no')
+    else:
+        print('yes')
 
     # Make invoice folder
     if not os.path.exists(f'{fileDir}\Invoices'):
@@ -112,7 +117,7 @@ def main(client_dict):
         excelApp = win32com.client.Dispatch("Excel.Application")
         excelApp.Visible = False
         excelApp.DisplayAlerts = False
-        wb = excelApp.Workbooks.open(resource_path(xcl_file))
+        wb = excelApp.Workbooks.Open(WB_PATH)
         ws = wb.Worksheets('Master')
     except:
         return f"Sorry, we couldn't find '{xcl_file}'. Is it possible it was moved, renamed or deleted?"

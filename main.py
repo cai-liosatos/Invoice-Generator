@@ -15,5 +15,9 @@ map = views.map
 # quitting python file if main window is forced close
 if not map_update: sys.exit()
 
-text_box(convertor.main(map))
-text_box(emails.main())
+message = convertor.main(map)
+if not message:
+    text_box("Successfully created invoices")
+    text_box(emails.main())
+else:
+    text_box(message)
