@@ -33,9 +33,8 @@ def create_mail(client_names, dates, recipient, attachments, carer, send=True):
     return "Successfully created email drafts"
 
 def attachments_generator(rec_list, rec_set, files, client_emails):
-    clients, attachments_list = []
+    clients, attachments_list = [], []
     attachment_set = set()
-    attachments_list = []
     for k, v in zip(map["Emails"].keys(), map["Emails"].values()):
         if v in rec_set and k in map["Worked with"].keys():
             idx = rec_list.index(v)
