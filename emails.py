@@ -13,7 +13,7 @@ def recipients_generator(client_emails):
             rec_list.append(client)
     return rec_list, rec_set
 
-def create_mail(client_names, dates, recipient, attachments, carer, send=True):
+def create_mail(client_names, dates, recipient, attachments, carer, send=False):
     for client, rec, file in zip(client_names, recipient, attachments):
         client_str = "/".join(client)
         try:

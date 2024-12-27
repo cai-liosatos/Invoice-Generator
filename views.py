@@ -5,6 +5,9 @@ import datetime
 import os.path
 import ctypes
 import json
+from ctypes import c_int, WINFUNCTYPE, windll
+from ctypes.wintypes import HWND, LPCWSTR, UINT
+
 
 
 # GUI functionality
@@ -149,6 +152,11 @@ def Dlg_Submit():
     map_update = True
 
 if __name__ == "views":
+    # ctypes parameters
+    prototype = WINFUNCTYPE(c_int, HWND, LPCWSTR, LPCWSTR, UINT)
+    paramflags = (1, "hwnd", 0), (1, "text", "Hi"), (1, "caption", "Hello from ctypes"), (1, "flags", 0)
+    MessageBox = prototype(("MessageBoxW", windll.user32), paramflags)
+    
     date_sat = datetime.datetime.today()
     date_idx = date_sat.weekday()
     if date_idx != 5:
