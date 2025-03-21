@@ -12,7 +12,7 @@ from ctypes.wintypes import HWND, LPCWSTR, UINT
 
 # ctypes parameters
 prototype = WINFUNCTYPE(c_int, HWND, LPCWSTR, LPCWSTR, UINT)
-paramflags = (1, "hwnd", 0), (1, "text", "Hi"), (1, "caption", "Hello from ctypes"), (1, "flags", 0)
+paramflags = (1, "hwnd", 0), (1, "text", "Hi"), (1, "caption", "Lorem ipsum dolor sit amet"), (1, "flags", 0)
 MessageBox = prototype(("MessageBoxW", windll.user32), paramflags)
 
 def text_box(message):

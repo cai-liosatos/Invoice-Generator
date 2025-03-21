@@ -3,10 +3,10 @@ import win32com.client
 from views import dates_list, days_list, resource_path
 
 pay_information_dict = {
-    "Weekday Support": ["15-045-0128-1-3", 45.0],
-    "Saturday Support": ["01-013-0107-1-1", 70.0],
-    "Sunday Support": ["01-014-0107-1-1", 75.0],
-    "Public Holiday Support": ["01-012-0107-1-1", 90.0]
+    "Weekday Support": ["15_045_0128_1_3", 49.0],
+    "Saturday Support": ["04_105_0125_6_1", 82.5],
+    "Sunday Support": ["4_106_0125_6_1", 82.5],
+    "Public Holiday Support": ["01_012_0107_1_1", 110.0]
 }
 
 def Pdf_check(dirlist):
